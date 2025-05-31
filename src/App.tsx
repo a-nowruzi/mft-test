@@ -1,32 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useState, useRef } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [timer, setTimer] = useState(0)
+  const [isRunning, setIsRunning] = useState(false)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  // Start timer
+  const handlePlay = () => {
+    if (!isRunning) {
+      setIsRunning(true)
+      intervalRef.current = window.setInterval(() => {
+        setTimer((prev) => prev + 1)
+      }, 1000)
+    }
+  }
+
+  // Pause timer
+  const handlePause = () => {
+    setIsRunning(false)
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
+  }
+
+  // Reset timer
+  const handleReset = () => {
+    setTimer(0)
+    setIsRunning(false)
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
+  }
+
+  // Cleanup on unmount
+  React.useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current as number)
+      }
+    }
+  }, [])
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <h2>Timer: {timer} seconds</h2>
+        <button onClick={handlePlay} disabled={isRunning} aria-label="Play timer">Play</button>
+        <button onClick={handlePause} disabled={!isRunning} aria-label="Pause timer">Pause</button>
+        <button onClick={handleReset} aria-label="Reset timer">Reset</button>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        MFT Hiring Test
       </p>
     </>
   )

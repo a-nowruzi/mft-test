@@ -1,54 +1,97 @@
-# React + TypeScript + Vite
+# MFT Test: React + TypeScript + Vite Timer App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a minimal React application built with TypeScript and Vite. It features a simple timer with play, pause, and reset functionality, designed as part of the MFT Hiring Test.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Timer**: Start, pause, and reset a timer that counts seconds.
+- **Accessible UI**: Buttons are accessible with ARIA labels.
+- **Modern Tooling**: Built with Vite for fast development and TypeScript for type safety.
+- **Linting**: ESLint is configured for code quality.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18 or newer recommended)
+- [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Installation
+
+Clone the repository and install dependencies:
+
+```bash
+# Clone the repo
+$ git clone https://github.com/a-nowruzi/mft-test
+$ cd mft-test
+
+# Install dependencies
+$ yarn install
+# or
+$ npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Running the App in Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+$ yarn dev
+# or
+$ npm run dev
 ```
+
+The app will be available at [http://localhost:5173](http://localhost:5173) by default.
+
+### Building for Production
+
+```bash
+$ yarn build
+# or
+$ npm run build
+```
+
+### Previewing the Production Build
+
+```bash
+$ yarn preview
+# or
+$ npm run preview
+```
+
+### Linting
+
+```bash
+$ yarn lint
+# or
+$ npm run lint
+```
+
+## Project Structure
+
+```
+├── public/              # Static assets (e.g., vite.svg)
+├── src/
+│   ├── App.tsx         # Main React component (timer logic)
+│   ├── App.css         # Component-specific styles
+│   ├── index.css       # Global styles
+│   ├── main.tsx        # App entry point
+│   └── assets/         # Image assets (e.g., react.svg)
+├── index.html          # HTML template
+├── package.json        # Project metadata and scripts
+├── tsconfig*.json      # TypeScript configuration
+├── vite.config.ts      # Vite configuration
+└── README.md           # Project documentation
+```
+
+## Timer Functionality
+
+The timer is implemented in `src/App.tsx` using React hooks:
+- **Play**: Starts the timer (increments every second)
+- **Pause**: Pauses the timer
+- **Reset**: Stops and resets the timer to zero
+- Uses `setInterval` and `useRef` for interval management
+- Cleans up intervals on component unmount
+
+## Technologies Used
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [ESLint](https://eslint.org/)
